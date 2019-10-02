@@ -1,0 +1,15 @@
+name = []
+x = 0
+
+fileOpener = open("avengersNames.txt", "r")
+
+name.append(fileOpener.readline())
+while name[x] != "":
+    name.append(fileOpener.readline())
+    x += 1
+
+sortedNames = []
+sortedNames = sorted(name, key=str.lower)
+
+for x in range (len(sortedNames)):
+    print(sortedNames[x])
