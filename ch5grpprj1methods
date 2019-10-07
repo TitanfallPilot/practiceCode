@@ -1,0 +1,223 @@
+import java.util.*;
+
+public class ch5groupProject1
+{
+    // instance variables - replace the example below with your own
+    private int x;
+
+    public ch5groupProject1()
+    {
+        // initialise instance variables
+        x = 0;
+    }
+
+    public static void displayInfo()
+    {
+        System.out.println("\t\tFunky Festival Frequenters (FFF)");
+        System.out.println("----------------------------------------------------------");
+        System.out.println("\nLooking to plan your next celebration? You've come to the" + 
+        " right place.");
+    }
+    
+    public static String getName()
+    {
+        String name;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("\nPlease enter your name: ");
+        name = keyboard.nextLine();
+        return name;
+    }
+    
+    public static String getPhoneNumber()
+    {
+        String phoneNumber;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("\n\nPlease enter your phone number: ");
+        phoneNumber = keyboard.nextLine();
+        return phoneNumber;
+    }
+    
+    public static int getGuests()
+    {
+        int guests;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("\n\nPlease enter how many guests will be attending: ");
+        guests = keyboard.nextInt();
+        while(guests < 1)
+        {
+            System.out.println("\nInvalid guests amount. Try again.");
+            System.out.print("\n\nPlease enter how many guests will be attending: ");
+            guests = keyboard.nextInt();
+        }
+        return guests;
+    }
+    
+    public static int getHours()
+    {
+        int hours;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("\n\nPlease enter how many hours the party will last: (69.99/hour)");
+        hours = keyboard.nextInt();
+        while(hours < 1 || hours > 8)
+        {
+            System.out.println("\nInvalid hours amount. Party must be within 1 and 8 hours.\nPlease try again.");
+            System.out.print("\n\nPlease enter how many hours the party will last: ");
+            hours = keyboard.nextInt();
+        }
+        return hours;
+    }
+    
+    public static String parsePhoneNumber(String phoneNumber)
+    {
+        String parsedPhoneNumber = ""; // remove assignnment later]
+        String parsedPhoneNumberFormated = "(";
+        char parsedCharacter;
+        int x = 0;
+        for(x = 0; x < phoneNumber.length(); x++)
+        {
+            // cast as an int
+            if(phoneNumber.charAt(x) == '0' || phoneNumber.charAt(x) == '1' || phoneNumber.charAt(x) == '2'
+            || phoneNumber.charAt(x) == '3' || phoneNumber.charAt(x) == '4' || phoneNumber.charAt(x) == '5'
+            || phoneNumber.charAt(x) == '6' || phoneNumber.charAt(x) == '7' || phoneNumber.charAt(x) == '8'
+            || phoneNumber.charAt(x) == '9')
+            {
+                parsedCharacter = phoneNumber.charAt(x);
+                parsedPhoneNumber += parsedCharacter;
+                
+            }
+        }
+        
+        for(x = 0; x < parsedPhoneNumber.length(); x++)
+        {
+            parsedCharacter = parsedPhoneNumber.charAt(x);
+            if(x == 3)
+            {
+                parsedPhoneNumberFormated += ")-";
+            }
+            else if(x == 6)
+            {
+                parsedPhoneNumberFormated += "-";
+            }
+            
+            parsedPhoneNumberFormated += parsedCharacter;
+            
+        }
+        
+        if(parsedPhoneNumber.length() < 10 || parsedPhoneNumber.length() > 10)
+        {
+            parsedPhoneNumberFormated = "(000) 000-0000";
+        }
+        
+        return parsedPhoneNumberFormated;
+    }
+    
+    public static int generateEventID()
+    {
+        int eventID = 0; // remove declartion later
+        Random randomNumbers = new Random();
+        
+        eventID = randomNumbers.nextInt(100) * randomNumbers.nextInt(10);
+    
+        return eventID;
+    }
+    
+    public static double calculateTax(double subTotal, double TAX_RATE)
+    {
+        double tax = 0; // remove assignment later
+        
+        tax = subTotal * TAX_RATE;
+        
+        return tax;
+    }
+    
+    public static double calculateTotal(double subTotal, double tax)
+    {
+        double total = 0; // remove assignment later
+        
+        total = subTotal + tax;
+        
+        return total;
+    }
+    
+    public static void generateReceipt(double subTotal, double tax, double total, int eventNumber,
+    double service1Total, double service2Total, double service3Total, double service4Total, double service5Total, String name, String parsedPhoneNumber, int guests, int partyHours)
+    {
+        Random randomLetter = new Random();
+        
+        int randomCharSelect = randomLetter.nextInt(2);
+        double tempServiceAmount = 0;
+        final double ROOM_RATE = 69.99, SERVICE4 = 14.99, SERVICE5 = 69.99;
+        double roomCharge = partyHours * 69.99;
+        char randomChar = ' ';
+        if(randomCharSelect == 0)
+        {
+            randomChar = 'A';
+        }
+        else if(randomCharSelect == 1)
+        {
+            randomChar = 'P';
+        }
+        else
+        {
+            randomChar = 'Z';
+        }
+        
+        System.out.println("\n**********************************");
+        System.out.println("\n\n\n\nReceipt:\n");
+        System.out.println("Client Name: " + name);
+        System.out.println("Client Number: " + parsedPhoneNumber);
+        System.out.println("\nEvent Number: " + randomChar + eventNumber);
+        
+        System.out.println("\nCharges: \n");
+        
+        System.out.println("------------------------------------");
+        System.out.println("| Service       | Price   | Amount |");
+        System.out.println("------------------------------------");
+        if(service1Total != 0)
+        {
+            System.out.printf("| Bouncy Castle | $%-6.2f |        |\n", service1Total);
+            System.out.println("------------------------------------");
+        }
+        if(service2Total != 0)
+        {
+            System.out.printf("| Cake          | $%-6.2f |        |\n", service2Total);
+            System.out.println("------------------------------------");
+        }
+        if(service3Total != 0)
+        {
+            tempServiceAmount = guests;
+            System.out.printf("| Chairs        | $%-6.2f | %-3.0f    |\n", service3Total, tempServiceAmount);
+            System.out.println("------------------------------------");
+        }
+        if(service4Total != 0)
+        {
+            tempServiceAmount = service4Total / 14.99;
+            System.out.printf("| Tables        | $%-6.2f | %-3.0f    |\n", service4Total, tempServiceAmount);
+            System.out.println("------------------------------------");
+        }
+        if(service5Total != 0)
+        {
+            tempServiceAmount = service5Total / 69.99;
+            System.out.printf("| DJ            | $%-6.2f | %-3.0f    |\n", service5Total, tempServiceAmount);
+            System.out.println("------------------------------------");
+        }
+        System.out.printf("| Room Rental   | $%-6.2f |        |\n", roomCharge);
+        System.out.println("------------------------------------");
+        
+        
+        System.out.println("\n\n----------------------");
+        System.out.printf("| Subtotal  | %-6.2f |\n", subTotal + roomCharge);
+        System.out.println("----------------------");
+        System.out.printf("| Sales Tax | %-6.2f |\n", tax + (roomCharge * 0.00825));
+        System.out.println("----------------------");
+        
+        System.out.printf("\n\nGrand Total: $%.2f\n", total + (roomCharge * 0.00825));
+        
+        System.out.printf("\nThank you for choosing Funky Festival Frequenters.");
+        
+        
+        
+        
+    }
+    
+}
