@@ -1,0 +1,33 @@
+searches = {
+}
+
+searches[""] = ""
+
+count = 0
+for line in open("searchresults.txt"): count += 1
+
+f = open("searchresults.txt", "r")
+for x in range(count): 
+  dictLine = f.readline()
+  seperatorPos = int(dictLine.find(' - '))
+  firstQuery = dictLine[(0):(seperatorPos)]
+  secondQuery = dictLine[(int(seperatorPos))+3:]
+
+  parsedSecondQuery = secondQuery[:-1]
+
+  searches[firstQuery] = parsedSecondQuery
+  searches[parsedSecondQuery] = firstQuery
+
+looper = 1
+
+print("             This Searches for Stuff")
+print("-----------------------------------------------------")
+while (looper == 1):
+
+  print('Please enter a search qeuery and I will return you the result: ')
+  searchEntry = input();
+
+  returnedResult = searches[searchEntry];
+  print()
+  print("The result was: ");
+  print(returnedResult);
