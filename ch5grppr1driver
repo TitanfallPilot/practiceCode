@@ -1,0 +1,120 @@
+import java.util.*;
+
+public class ch5groupProject1d
+
+{
+    public static void main(String[] args)
+    {
+        String name, phoneNumber, eventID, parsedPhoneNumber;
+        int guests, partyHours, eventNumber, serviceChoice = 0, serviceHours;
+        double subTotal = 0, tax, total;
+        double tempServiceCharge, tempServiceAmount, service1Total = 0, 
+        service2Total = 0, service3Total = 0, service4Total = 0, service5Total = 0;
+        final double TAX_RATE = 0.0825;
+        final double SERVICE1 = 49.95, SERVICE2 = 24.95, SERVICE3 = 3.49, SERVICE4 = 14.99,
+        SERVICE5 = 69.99;
+        
+        
+        ch5groupProject1 drive = new ch5groupProject1();
+        Scanner keyboard = new Scanner(System.in);
+        
+        ch5groupProject1.displayInfo();
+        name = ch5groupProject1.getName();
+        phoneNumber = ch5groupProject1.getPhoneNumber();
+        guests = ch5groupProject1.getGuests();
+        partyHours = ch5groupProject1.getHours();
+        //***********************
+        while(serviceChoice != 6)
+        {
+            System.out.println("\nOffered Services");
+            System.out.println("----------------");
+            System.out.println("\n1. Bouncy Castle\t-$49.95");
+            System.out.println("2. Cake\t\t\t-$24.95");
+            System.out.println("3. Chairs\t\t-$3.49/person");
+            System.out.println("4. Tables\t\t-$14.99/5 persons");
+            System.out.println("5. DJ\t\t\t-$69.99/hour");
+            System.out.println("6. Done");
+            System.out.print("\nPlease make a selection: ");
+            serviceChoice = keyboard.nextInt();
+            
+            switch(serviceChoice)
+            {
+                case 1:
+                    System.out.println("\n\nBouncy castle ordered, thank you.");
+                    service1Total = SERVICE1;
+                    break;
+                    
+                case 2:
+                    System.out.println("\n\nCake ordered, thank you.");
+                    service2Total = SERVICE2;
+                    break;
+                    
+                case 3:
+                    tempServiceAmount = guests;
+                    System.out.println("\n\n" + tempServiceAmount + " chairs ordered, thank you.");
+                    service3Total = guests * SERVICE3;
+                    break;
+                    
+                case 4:
+                    if(guests % 5 < guests / 5)
+                    {
+                        tempServiceAmount = (guests % 5) + 1;
+                    }
+                    else
+                    {
+                        tempServiceAmount = guests / 5;
+                    }
+                    
+                    if(guests < 5)
+                    {
+                        tempServiceAmount = 1;
+                    }
+                    
+                    service4Total = tempServiceAmount * SERVICE4;
+                    System.out.println(guests % 5 + " tables orderd, thank you.");
+                    break;
+                    
+                case 5:
+                    System.out.print("\nHow many hours do you want the DJ for? ");
+                    tempServiceAmount = keyboard.nextDouble();
+                    service5Total = tempServiceAmount * SERVICE5;
+                    while(tempServiceAmount < 1)
+                    {
+                        System.out.println("\nInvalid hours amount. Try again.");
+                        System.out.print("\nHow many hours do you want the DJ for? ");
+                        tempServiceAmount = keyboard.nextDouble();
+                        service5Total = tempServiceAmount * SERVICE5;
+                    }
+                    System.out.println("DJ ordered for " + tempServiceAmount + " hours, thank you.");
+                    break;
+                    
+                case 6:
+                    System.out.println("\nThank you, generating receipt.");
+                    break;
+                    
+                default:
+                    System.out.println("Invalid choice. Try again.");
+                    break;
+            }
+        }
+        
+        subTotal = service1Total + service2Total + service3Total + 
+        service4Total + service5Total;
+        // ch5groupProject1.offeredSercvices() // Write in main
+        // Offer products and services, loop, input validate #
+        //**********************
+        parsedPhoneNumber = ch5groupProject1.parsePhoneNumber(phoneNumber);
+        
+        // Parse phone number, check charcters, cast as int, break into 3 sections #
+        eventNumber = ch5groupProject1.generateEventID();
+        // Generate event id, random number #
+        tax = ch5groupProject1.calculateTax(subTotal, TAX_RATE);
+        total = ch5groupProject1.calculateTotal(subTotal, tax);
+        // Calculate total #
+        ch5groupProject1.generateReceipt(subTotal, tax, total, eventNumber, 
+        service1Total, service2Total, service3Total, service4Total, service5Total, 
+        name, parsedPhoneNumber, guests, partyHours);
+        // Receipt + thank you
+
+    }
+}
