@@ -1,0 +1,11 @@
+#Made by Alexander
+farenheit = 0
+celcius = -1
+
+for i in range(21):
+
+  celcius += 1
+  farenheit = (celcius * (9/5)) + 32
+  print("" + str(round(farenheit, 2)) + " F     ", end = "")
+  print("" + str(round(celcius, 2)) + " C")
+  
