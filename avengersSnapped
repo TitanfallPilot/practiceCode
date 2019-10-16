@@ -1,0 +1,55 @@
+#created on 10-2-19
+#Created by Alexander
+import random 
+
+
+
+avengers = []
+
+file1 = open("avengersList.txt","r");
+
+listEnd = False
+x = 0
+while (listEnd == False):
+  avengers.append(file1.readline().rstrip('\n'))
+  if (avengers[x] == ''):
+    listEnd = True
+    del avengers[-1]
+  x += 1
+
+#Sort the list alphabetically
+avengers = sorted(avengers, key=str.lower);
+
+print("\nHeroes alive before then snap");
+#Shows heroes before the snap
+for i in range(len(avengers)):
+  print(avengers[i])
+
+listLength = len(avengers)
+snapLength = listLength/2
+print("\nNumber of Heroes: "+ str(listLength));
+randomNumber = [];
+
+toBeSnapped = [];
+#Assigns ranom numbers into a list to be used to remove from the list avengers
+for i in range(int(snapLength)):
+  generatedNum = random.randint(0, int(snapLength))
+  if(i == 0):
+    print("");
+  else:
+    if(generatedNum == randomNumber[i-1]):
+      i -= 1
+  randomNumber.append(generatedNum)
+  avengers.append(randomNumber[i])
+  
+#Using the list randomNumber, that index in the list avenegrs is removed
+for i in range(int(snapLength)):
+  avengers.pop(randomNumber[i])
+  
+print("\n\nSnapping!\n\n")
+
+#Prints all the remaining avengers
+for i in range(int(snapLength)):
+  print(avengers[i])
+
+print("\nNumber of Heroes alive after the snap: " + str(int(snapLength)))
